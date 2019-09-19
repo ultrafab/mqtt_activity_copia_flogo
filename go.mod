@@ -1,4 +1,4 @@
-module github.com/project-flogo/edge-contrib/activity/mqtt
+module ithub.com/ultrafab/mqtt_activity_copia_flogo
 
 go 1.12
 
