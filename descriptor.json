@@ -1,9 +1,9 @@
 {
-  "name": "flogo-mqtt",
+  "name": "flogo-ws",
   "type": "flogo:activity",
   "version": "0.1.0",
-  "title": "MQTT Activity",
-  "description": "Send MQTT message",
+  "title": "WS Activity",
+  "description": "Send WS message",
   "homepage": "https://github.com/ultrafab/mqtt_activity_copia_flogo",
   "settings": [
     {
@@ -11,88 +11,6 @@
       "type": "string",
       "required": true,
       "description": "The ws server URL"
-    },
-    {
-      "name": "broker",
-      "type": "string",
-      "required": true,
-      "description": "The broker URL"
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "required": true,
-      "description": "The id of client"
-    },
-    {
-      "name": "username",
-      "type": "string",
-      "description": "The user's name"
-    },
-    {
-      "name": "password",
-      "type": "string",
-      "description": "The user's password"
-    },
-    {
-      "name": "store",
-      "type": "string",
-      "description": "The store for message persistence"
-    },
-    {
-      "name": "qos",
-      "type": "int",
-      "allowed": [0,1,2],
-      "description": "The quality of service"
-    },
-    {
-      "name": "cleanSession",
-      "type": "boolean",
-      "description": "Clean session flag"
-    },
-    {
-      "name": "topic",
-      "type": "string",
-      "description": "The topic to publish to"
-    },
-    {
-      "name": "retain",
-      "type": "boolean",
-      "description": "Retain messages"
-    },
-    {
-      "name": "sslConfig",
-      "type": "object",
-      "description": "Optional SSL Settings",
-      "properties": [
-        {
-          "name": "skipVerify",
-          "type": "boolean",
-          "value": "true",
-          "description": "Skip SSL validation"
-        },
-        {
-          "name": "useSystemCert",
-          "type": "boolean",
-          "value": "true",
-          "description": "Use the systems root certificate file"
-        },
-        {
-          "name": "certFile",
-          "type": "string",
-          "description": "Path to PEM encoded client certificate"
-        },
-        {
-          "name": "keyFile",
-          "type": "string",
-          "description": "Path to PEM encoded client key"
-        },
-        {
-          "name": "caFile",
-          "type": "string",
-          "description": "Path to PEM encoded root certificates file"
-        }
-      ]
     }
   ],
   "input": [
@@ -100,11 +18,6 @@
       "name": "message",
       "type": "string",
       "description": "The message to send"
-    },
-    {
-      "name": "topicParams",
-      "type": "params",
-      "description": "The topic parameters"
     },
     {
       "name": "destination",

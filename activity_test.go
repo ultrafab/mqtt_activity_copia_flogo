@@ -40,25 +40,6 @@ func TestMain(m *testing.M) {
 	*/
 }
 
-func TestParseTopic(t *testing.T) {
-	test := func(input, output string, params map[string]string) {
-		parsed := ParseTopic(input)
-		assert.Equal(t, parsed.String(params), output)
-	}
-	test("/a/:x/b/:y", "/a/test/b/j/k", map[string]string{"x": "test", "y": "j/k"})
-	test("/a/:/b/:", "/a/test/b/j/k", map[string]string{"0": "test", "1": "j/k"})
-	test("a/:/b/:", "a/test/b/j/k", map[string]string{"0": "test", "1": "j/k"})
-	test("a/:/b", "a/test/b", map[string]string{"0": "test"})
-	test("a/:/b/", "a/test/b/", map[string]string{"0": "test"})
-	test("", "", map[string]string{})
-	test(":", "test", map[string]string{"0": "test"})
-	test(":", "test", map[string]string{"0": "test"})
-	test("/", "/", map[string]string{})
-	test("/:", "/test", map[string]string{"0": "test"})
-	test("/:", "/test", map[string]string{"0": "test"})
-	test("/a/b", "/a/b", map[string]string{})
-}
-
 func TestRegister(t *testing.T) {
 
 	ref := activity.GetRef(&Activity{})
@@ -86,16 +67,13 @@ func TestEval(t *testing.T) {
 	assert.Nil(t, token.Error())
 
 	settings := Settings{
-		Broker: "tcp://localhost:1883",
-		Id:     "TestX",
-		Topic:  "/x/:a/y/:b",
+		Server: "localhost:5001",
 	}
 	init := test.NewActivityInitContext(settings, nil)
 	act, err := New(init)
 	assert.Nil(t, err)
 	context := test.NewActivityContext(activityMd)
 	context.SetInput("message", `{"message": "hello world"}`)
-	context.SetInput("topicParams", map[string]string{"a": "test", "b": "j/k"})
 	done, err := act.Eval(context)
 	assert.True(t, done)
 	assert.Nil(t, err)
