@@ -1,4 +1,4 @@
-module ithub.com/ultrafab/mqtt_activity_copia_flogo
+module github.com/ultrafab/mqtt_activity_copia_flogo
 
 go 1.12
 
