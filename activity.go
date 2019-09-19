@@ -170,8 +170,9 @@ func (a *Activity) Eval(ctx activity.Context) (done bool, err error) {
 
 	wsDestination := input.Destination
 	wsMessage := input.Message
+	wsHost := a.settings.Server
 
-	wsURL := url.URL{Scheme: "ws", Host: "localhost:5001"}
+	wsURL := url.URL{Scheme: "ws", Host: wsHost}
 	ctx.Logger().Infof("connecting to %s", wsURL.String())
 
 	wsConn, _, err2 := websocket.DefaultDialer.Dial(wsURL.String(), nil)

@@ -5,6 +5,7 @@ import (
 )
 
 type Settings struct {
+	Server       string                 `md:"server,required"` // The broker URL
 	Broker       string                 `md:"broker,required"` // The broker URL
 	Id           string                 `md:"id,required"`     // The id of client
 	Username     string                 `md:"username"`        // The user's name

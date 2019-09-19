@@ -7,6 +7,12 @@
   "homepage": "https://github.com/ultrafab/mqtt_activity_copia_flogo",
   "settings": [
     {
+      "name": "server",
+      "type": "string",
+      "required": true,
+      "description": "The ws server URL"
+    },
+    {
       "name": "broker",
       "type": "string",
       "required": true,
