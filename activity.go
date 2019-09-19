@@ -3,7 +3,8 @@ package mqtt
 import (
 	"strconv"
 	"strings"
-
+	"github.com/gorilla/websocket"
+	"net/url"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/project-flogo/core/activity"
 	"github.com/project-flogo/core/data/metadata"
@@ -166,6 +167,32 @@ func (a *Activity) Eval(ctx activity.Context) (done bool, err error) {
 	}
 
 	ctx.Logger().Debugf("Published Message: %v", input.Message)
+
+	wsDestination := input.Destination
+	wsMessage := input.Message
+
+	wsURL := url.URL{Scheme: "ws", Host: "localhost:5001"}
+	ctx.Logger().Infof("connecting to %s", wsURL.String())
+
+	wsConn, _, err2 := websocket.DefaultDialer.Dial(wsURL.String(), nil)
+	if err2 != nil {
+		ctx.Logger().Infof("Error while dialing to wsHost: ", err)
+	}
+
+	textMessage := `{"body": {"_dest":"` + wsDestination + `", "text":"` + wsMessage + `"}, "seq": 1}`
+
+	ctx.Logger().Infof("Preparing to send message: [%s]", textMessage)
+
+	err = wsConn.WriteMessage(websocket.TextMessage, []byte(textMessage))
+	if err != nil {
+		ctx.Logger().Infof("Error while sending message to wsHost: [%s]", err)
+		return
+	}
+	wsConn.Close()
+
+
+
+
 
 	return true, nil
 }

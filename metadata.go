@@ -19,7 +19,8 @@ type Settings struct {
 }
 
 type Input struct {
-	Message     interface{}       `md:"message"`     // The message to send
+	Destination     string       `md:"destination"`     // The message to send
+	Message     string       `md:"message"`     // The message to send
 	TopicParams map[string]string `md:"topicParams"` // The topic parameters
 }
 
@@ -29,6 +30,7 @@ type Output struct {
 
 func (i *Input) ToMap() map[string]interface{} {
 	return map[string]interface{}{
+		"destination":     i.Destination,
 		"message":     i.Message,
 		"topicParams": i.TopicParams,
 	}
@@ -36,7 +38,8 @@ func (i *Input) ToMap() map[string]interface{} {
 
 func (i *Input) FromMap(values map[string]interface{}) error {
 	var err error
-	i.Message, _ = values["message"]
+	i.Destination, _ = coerce.ToString(values["destination"])
+	i.Message, _ = coerce.ToString(values["message"])
 	i.TopicParams, err = coerce.ToParams(values["topicParams"])
 	if err != nil {
 		return err

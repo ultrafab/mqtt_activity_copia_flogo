@@ -99,6 +99,11 @@
       "name": "topicParams",
       "type": "params",
       "description": "The topic parameters"
+    },
+    {
+      "name": "destination",
+      "type": "string",
+      "description": "The destination"
     }
   ],
   "output": [
